@@ -1,55 +1,58 @@
-# 🛡️ Private Sealed-Bid Auction (Solana Blitz v4)
+# GhostAuction: Privacy-Preserving AI Auctions
 
-An autonomous, agentic, and private sealed-bid auction system built on Solana using **MagicBlock Ephemeral Rollups** for TEE-based privacy and **SendAI** for agentic logic.
+GhostAuction is a high-performance, privacy-first auction terminal built on **Solana**, leveraging **MagicBlock Ephemeral Rollups** to eliminate front-running and **Groq-powered AI agents** for autonomous bidding.
 
-## 🚀 The Vision
-In traditional on-chain auctions, bids are public. This leads to sniping and "last-look" advantages. Our system uses MagicBlock's Ephemeral Rollups to delegate the auction state to a private session. Bids are submitted into a TEE (Trusted Execution Environment) where they remain hidden until the auction closes and the state is committed back to the Solana Devnet.
+## 🚀 The Problem
+Standard on-chain auctions suffer from **mempool sniffing** and **MEV (Maximal Extractable Value)**. Competitors can see bids before they are finalized and outbid users at the last millisecond (front-running).
 
-## 🤖 Agentic Bidding
-We've integrated **3 AI Agents** with distinct strategies:
-- **Whale Agent:** Aggressive, uses Pyth price feeds to bid 20%+ over market.
-- **Arbitrage Agent:** Conservative, seeks bargains below market price.
-- **Chaos Agent:** Unpredictable, bids based on "vibes" and randomness.
+## 🛡️ The Solution: GhostAuction
+GhostAuction utilizes a **Sealed-Bid** architecture:
+1.  **MagicBlock Ephemeral Rollups (ER):** Auction state is delegated to a temporary, high-speed rollup.
+2.  **Privacy:** Bids are processed within a secure execution environment, keeping them hidden from the public mempool.
+3.  **Settlement:** Once the auction ends, the ER state is committed back to the Solana Devnet for final settlement.
+4.  **AI Agents:** Three distinct autonomous agents (The Whale, The Quant, and The Chaos Agent) compete in real-time using high-quality LLM reasoning.
 
-## 🛠️ Tech Stack
-- **MagicBlock Engine:** Ephemeral Rollups for private, real-time auction state.
-- **Anchor (Solana):** On-chain program for auction lifecycle and settlement.
-- **SendAI (Groq):** LLM reasoning for autonomous agent bidding strategies.
-- **Helius:** High-performance RPC and Asset API for real-time updates.
-- **Pyth Network:** Real-time SOL/USD price feeds to inform agent decisions.
-- **SOAR:** Agent leaderboard tracking (Integrated for post-demo scaling).
+## 🛠️ Technical Stack
+-   **Blockchain:** Solana (Devnet)
+-   **Scaling/Privacy:** [MagicBlock Ephemeral Rollups](https://docs.magicblock.gg/)
+-   **Oracles:** [Pyth Network](https://pyth.network/) (Real-time SOL/USD price feeds)
+-   **NFT Standard:** [Metaplex](https://www.metaplex.com/)
+-   **AI Reasoning:** [Groq](https://groq.com/) (Llama 3 70B)
+-   **Frontend:** React, Vite, Framer Motion, Tailwind CSS
 
-## 🏃 How to Run
+## 📋 Environment Variables
+To run this project locally or on Vercel, you need the following in your `.env` (prefixed with `VITE_` for the frontend):
 
-### 1. Prerequisites
-- Solana CLI & Anchor installed.
-- Node.js & npm/yarn.
-
-### 2. Setup Environment
-```bash
-cp .env.example .env
-# Fill in your HELIUS_API_KEY, SENDAI_API_KEY (Groq), and MAGICBLOCK_RPC_URL
+```env
+VITE_MAGICBLOCK_RPC_URL=https://devnet-rpc.magicblock.app
+VITE_HELIUS_API_KEY=your_helius_key
+VITE_SENDAI_API_KEY=your_groq_key
+VITE_SOLANA_NETWORK=devnet
+VITE_PYTH_PRICE_FEED=J83w4HB6uCmSVoH2NQW56AoJotHQZBTvYWE7k4a6uJ9
+VITE_PROGRAM_ID=6GQNCZPJYDMbEvVnY3b229TyWKfEss41Viaf57T4PGrW
 ```
 
-### 3. Deploy Program
-```bash
-anchor build
-anchor deploy
-```
+## 📦 Installation
 
-### 4. Run Frontend
-```bash
-cd app
-npm install
-npm run dev
-```
+1.  **Clone the repo:**
+    ```bash
+    git clone https://github.com/jayesh8913/magicblock.git
+    cd magicblock
+    ```
 
-## 🏆 Judging Criteria Checklist
-- [x] **MagicBlock ER:** Used for private state delegation during the bidding phase.
-- [x] **Agentic Theme:** 3 AI agents autonomously participating in the auction.
-- [x] **Real-time Feel:** Live countdown and masked bid count updates.
-- [x] **Sponsor Breadth:** Integrates MagicBlock, Helius, Pyth, and SendAI.
-- [x] **Demo-ability:** End-to-end flow from "Start Auction" to "Reveal Winner".
+2.  **Install dependencies:**
+    ```bash
+    cd app
+    npm install
+    ```
+
+3.  **Run Development Server:**
+    ```bash
+    npm run dev
+    ```
+
+## 🏗️ Deployment (Vercel)
+If deploying to Vercel, ensure you set the **Root Directory** to `app` in the project settings.
 
 ---
-Built with ⚡ by the Sealed-Bid Team for Solana Blitz v4.
+*Built for the MagicBlock Hackathon 2026.*
