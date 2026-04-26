@@ -1,0 +1,39 @@
+{
+  "name": "sealed-bid-auction-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@coral-xyz/anchor": "^0.29.0",
+    "@magicblock-labs/ephemeral-rollups-sdk": "^0.11.2",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.4.0",
+    "@pythnetwork/client": "^2.22.1",
+    "@solana/wallet-adapter-base": "^0.9.25",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/web3.js": "^1.91.1",
+    "autoprefixer": "^10.4.19",
+    "clsx": "^2.1.1",
+    "crypto-browserify": "^3.12.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.378.0",
+    "postcss": "^8.4.38",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "stream-browserify": "^3.0.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^3.4.3"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.2.0",
+    "vite-plugin-node-polyfills": "^0.26.0"
+  }
+}

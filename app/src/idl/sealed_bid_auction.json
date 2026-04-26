@@ -1,0 +1,157 @@
+{
+  "version": "0.1.0",
+  "name": "sealed_bid_auction",
+  "instructions": [
+    {
+      "name": "initializeAuction",
+      "docs": [
+        "Initializes a new Nitro Auction for a specific NFT."
+      ],
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "seller",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "itemMint",
+          "type": "publicKey"
+        },
+        {
+          "name": "duration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "submitBid",
+      "docs": [
+        "Submits a bid into the MagicBlock TEE.",
+        "In an Ephemeral Rollup, this state is processed at sub-1ms."
+      ],
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "bidder",
+          "isMut": true,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "settleAuction",
+      "docs": [
+        "Settles the auction and reveals the winner.",
+        "This commits the final ER state back to the Solana Devnet."
+      ],
+      "accounts": [
+        {
+          "name": "auction",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "seller",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Auction",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "seller",
+            "type": "publicKey"
+          },
+          {
+            "name": "itemMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "endTime",
+            "type": "i64"
+          },
+          {
+            "name": "totalBids",
+            "type": "u64"
+          },
+          {
+            "name": "highestBid",
+            "type": "u64"
+          },
+          {
+            "name": "winner",
+            "type": "publicKey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": "AuctionStatus"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "AuctionStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Settled"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "AuctionEnded",
+      "msg": "The auction has already ended."
+    },
+    {
+      "code": 6001,
+      "name": "AuctionNotEnded",
+      "msg": "The auction has not ended yet."
+    },
+    {
+      "code": 6002,
+      "name": "InvalidStatus",
+      "msg": "Invalid auction status."
+    }
+  ]
+}
